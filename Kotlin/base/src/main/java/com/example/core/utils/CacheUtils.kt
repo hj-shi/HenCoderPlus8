@@ -12,13 +12,12 @@ class CacheUtils {
         private val SP =
             context?.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
 
-        fun save(key: String, value: String) {
-            SP?.edit()?.putString(key, value)?.apply()
-        }
+        // 函数简化，返回类型 Unit
+        fun save(key: String, value: String) = SP?.edit()?.putString(key, value)?.apply()
 
-        fun get(key: String): String? {
-            return SP?.getString(key, null)
-        }
+        // 函数简化, 返回类型 String？
+        fun get(key: String) = SP?.getString(key, null)
+
     }
 
 }

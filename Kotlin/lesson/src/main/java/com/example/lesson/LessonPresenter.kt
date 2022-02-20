@@ -9,14 +9,8 @@ import com.example.lesson.entity.Lesson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-class LessonPresenter {
+class LessonPresenter(private var activity: LessonActivity) {
     private val LESSON_PATH = "lessons"
-
-    private var activity: LessonActivity
-
-    constructor(activity: LessonActivity) {
-        this.activity = activity
-    }
 
     private var lessons = ArrayList<Lesson>()
 
@@ -24,29 +18,29 @@ class LessonPresenter {
 
     fun fetchData() {
         HttpClient.get(LESSON_PATH, type, object : EntityCallback<ArrayList<Lesson>> {
-            override fun onSuccess(@NonNull  lessons:  ArrayList<Lesson>) {
-                this@LessonPresenter.lessons = lessons;
+            override fun onSuccess(@NonNull lessons: ArrayList<Lesson>) {
+                this@LessonPresenter.lessons = lessons
                 activity.runOnUiThread {
-                    activity.showResult(lessons);
+                    activity.showResult(lessons)
                 }
             }
 
             override fun onFailure(@Nullable message: String) {
                 activity.runOnUiThread {
-                    Utils.toast(message);
-
+                    Utils.toast(message)
                 }
             }
         })
     }
+
     fun showPlayback() {
-        val playbackLessons = ArrayList<Lesson>();
+        val playbackLessons = ArrayList<Lesson>()
         for (lesson in lessons) {
             if (lesson.state == Lesson.State.PLAYBACK) {
-                playbackLessons.add(lesson);
+                playbackLessons.add(lesson)
             }
         }
-        activity.showResult(playbackLessons);
+        activity.showResult(playbackLessons)
     }
 
 }

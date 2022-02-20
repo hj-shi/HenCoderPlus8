@@ -4,12 +4,12 @@ import android.app.Application
 import android.content.Context
 import androidx.annotation.NonNull
 
-class BaseApplication: Application() {
+class BaseApplication : Application() {
     companion object {
         var currentApplication: Context? = null
 
         @NonNull
-        fun  currentApplication(): Context? {
+        fun currentApplication(): Context? {
             return currentApplication;
         }
     }

@@ -7,8 +7,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseViewHolder : RecyclerView.ViewHolder {
-    constructor(@NonNull itemView: View) : super(itemView)
+abstract class BaseViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val viewHashMap = mutableMapOf<Int, View>()
 

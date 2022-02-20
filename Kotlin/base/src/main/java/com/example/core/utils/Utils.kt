@@ -1,26 +1,20 @@
 package com.example.core.utils
 
 import android.content.res.Resources
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.widget.Toast
 import com.example.core.BaseApplication
 
+fun Float.dp2px(): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this,
+    Resources.getSystem().displayMetrics
+)
+
 class Utils {
     companion object {
-        private val displayMetrics: DisplayMetrics = Resources.getSystem().displayMetrics
-
-        fun dp2px(dp: Float): Float {
-            return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics)
-        }
-
+        // 默认参数，Java侧生成2个重载函数
         @JvmStatic
-        fun toast(string: String) {
-            toast(string, Toast.LENGTH_SHORT)
-        }
-
-        @JvmStatic
-        fun toast(string: String, duration: Int) {
+        @JvmOverloads
+        fun toast(string: String, duration: Int = Toast.LENGTH_SHORT) {
             Toast.makeText(BaseApplication.currentApplication(), string, duration).show()
         }
     }

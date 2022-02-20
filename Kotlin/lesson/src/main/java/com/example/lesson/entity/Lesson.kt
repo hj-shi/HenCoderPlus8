@@ -1,6 +1,7 @@
 package com.example.lesson.entity
 
-class Lesson {
+// 主构造器中使用 var 修饰参数 能同时生成对应属性
+class Lesson(var date: String?, var content: String, var state: State) {
     enum class State {
         PLAYBACK {
             override fun stateName(): String {
@@ -23,13 +24,4 @@ class Lesson {
         abstract fun stateName(): String
     }
 
-    var date: String
-    var content: String
-    var state: State
-
-    constructor( date: String,  content: String,  state: State) {
-        this.date = date;
-        this.content = content;
-        this.state = state;
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,6 +10,7 @@ import com.example.app.entity.User
 import com.example.app.widget.CodeView
 import com.example.core.utils.CacheUtils
 import com.example.core.utils.Utils
+import com.example.lesson.LessonActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val usernameKey = "username"
@@ -49,22 +51,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val code = et_code.getText().toString()
 
         val user = User(username, password, code)
-        if (verify(user)) {
 
+        // 函数嵌套
+        fun verify(): Boolean {
+            val userName = user.username
+            if (userName != null && userName.length < 4) {
+                Utils.toast("用户名不合法")
+                return false
+            }
+            val passWord = user.password
+            if (passWord != null && passWord.length < 4) {
+                Utils.toast("密码不合法")
+                return false
+            }
+            return true
+        }
+
+        // 调用嵌套函数，有创建临时对象的开销
+        if (verify()) {
+            CacheUtils.save(usernameKey, username);
+            CacheUtils.save(passwordKey, password);
+            startActivity(Intent(this, LessonActivity::class.java))
         }
     }
 
-    private fun verify(user: User): Boolean {
-        val userName = user.username
-        if (userName != null && userName.length < 4) {
-            Utils.toast("用户名不合法")
-            return false
-        }
-        val passWord = user.password
-        if (passWord != null && passWord.length < 4) {
-            Utils.toast("密码不合法")
-            return false
-        }
-        return true
-    }
 }
